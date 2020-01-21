@@ -117,31 +117,6 @@
          </execution>
        </executions>
      </plugin>
-       <plugin>
-    <!-- Deploy the web site -->
-    <groupId>com.github.github</groupId>
-    <artifactId>site-maven-plugin</artifactId>
-    <version>0.9</version>
-    <executions>
-        <execution>
-            <goals>
-                <goal>site</goal>
-            </goals>
-            <phase>site-deploy</phase>
-            <configuration>
-                <!-- must match the server's id  -->
-                <server>github</server>
-
-                <!-- The commit message -->
-                <message>Building site for my project</message>
-                <!-- The location where the site is uploaded -->
-                <path>${site.path}</path>
-                <!-- Use merge or override the content -->
-                <merge>true</merge>
-            </configuration>
-        </execution>
-    </executions>
-</plugin>
     </plugins>
   </build>
 </project>
