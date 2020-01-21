@@ -13,7 +13,6 @@
         <aws-lambda-java-core.version>1.2.0</aws-lambda-java-core.version>
         <spring-cloud-function.version>3.0.1.RELEASE</spring-cloud-function.version>
         <spring-boot-thin.version>1.0.23.RELEASE</spring-boot-thin.version>
-        <github.global.server>github</github.global.server>
     </properties>
 
     <scm>
@@ -118,6 +117,31 @@
          </execution>
        </executions>
      </plugin>
+       <plugin>
+    <!-- Deploy the web site -->
+    <groupId>com.github.github</groupId>
+    <artifactId>site-maven-plugin</artifactId>
+    <version>0.9</version>
+    <executions>
+        <execution>
+            <goals>
+                <goal>site</goal>
+            </goals>
+            <phase>site-deploy</phase>
+            <configuration>
+                <!-- must match the server's id  -->
+                <server>github</server>
+
+                <!-- The commit message -->
+                <message>Building site for my project</message>
+                <!-- The location where the site is uploaded -->
+                <path>${site.path}</path>
+                <!-- Use merge or override the content -->
+                <merge>true</merge>
+            </configuration>
+        </execution>
+    </executions>
+</plugin>
     </plugins>
   </build>
 </project>
