@@ -1,0 +1,122 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>gov.acwi.wqp</groupId>
+    <artifactId>test-version</artifactId>
+    <version>0.0.1.${revision}</version>
+
+    <properties>
+    <revision>-SNAPSHOT</revision>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>11</java.version>
+        <wma.maven.url>https://cida.usgs.gov/artifactory</wma.maven.url>
+        <aws-lambda-events.version>2.2.7</aws-lambda-events.version>
+        <aws-lambda-java-core.version>1.2.0</aws-lambda-java-core.version>
+        <spring-cloud-function.version>3.0.1.RELEASE</spring-cloud-function.version>
+        <spring-boot-thin.version>1.0.23.RELEASE</spring-boot-thin.version>
+    </properties>
+
+    <scm>
+<!--         <connection>scm:git:https://github.com/NWQMC/test-version.git</connection> -->
+<!--         <developerConnection>scm:git:https://github.com/NWQMC/test-version.git</developerConnection> -->
+        <connection>scm:git:git@github.com:NWQMC/test-version.git</connection>
+        <developerConnection>scm:git:git@github.com:NWQMC/test-version.git</developerConnection>
+        <url>https://github.com/NWQMC/test-version.git</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <repositories>
+        <repository>
+            <id>Central</id>
+            <name>Maven Central</name>
+            <url>https://repo.maven.apache.org/maven2/</url>
+        </repository>
+        <repository>
+            <id>WMA</id>
+            <name>WMA Artifactory</name>
+            <url>${wma.maven.url}/list/wma-maven-centralized/</url>
+        </repository>
+    </repositories>
+
+    <distributionManagement>
+        <repository>
+            <id>wma-maven-releases</id>
+            <name>wma-maven-releases</name>
+            <url>${wma.maven.url}/wma-maven-releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>wma-maven-snapshots</id>
+            <name>wma-maven-snapshots</name>
+            <url>${wma.maven.url}/wma-maven-snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.2.4.RELEASE</version>
+    </parent>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-function-adapter-aws</artifactId>
+            <version>${spring-cloud-function.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-lambda-java-events</artifactId>
+            <version>${aws-lambda-events.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-lambda-java-core</artifactId>
+            <version>${aws-lambda-java-core.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+<build>
+   <plugins>
+      <plugin>
+        <artifactId>maven-scm-plugin</artifactId>
+        <version>1.11.2</version>
+        <configuration>
+             <tag>${project.artifactId}-${project.version}</tag>
+        </configuration>
+      </plugin>
+
+     <plugin>
+       <groupId>org.codehaus.mojo</groupId>
+       <artifactId>flatten-maven-plugin</artifactId>
+       <version>1.1.0</version>
+       <configuration>
+        <updatePomFile>true</updatePomFile>
+        <flattenMode>resolveCiFriendliesOnly</flattenMode>
+       </configuration>
+       <executions>
+         <execution>
+          <id>flatten</id>
+          <phase>process-resources</phase>
+          <goals>
+            <goal>flatten</goal>
+          </goals>
+         </execution>
+         <execution>
+          <id>flatten.clean</id>
+          <phase>clean</phase>
+          <goals>
+            <goal>clean</goal>
+          </goals>
+         </execution>
+       </executions>
+     </plugin>
+    </plugins>
+  </build>
+</project>
