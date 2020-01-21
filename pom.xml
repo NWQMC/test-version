@@ -13,6 +13,7 @@
         <aws-lambda-java-core.version>1.2.0</aws-lambda-java-core.version>
         <spring-cloud-function.version>3.0.1.RELEASE</spring-cloud-function.version>
         <spring-boot-thin.version>1.0.23.RELEASE</spring-boot-thin.version>
+        <github.global.server>github</github.global.server>
     </properties>
 
     <scm>
