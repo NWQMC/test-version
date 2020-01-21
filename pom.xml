@@ -16,7 +16,7 @@
     </properties>
 
     <scm>
-        <connection>scm:git:https://github.com/NWQMC/test-version.git</connection>
+        <connection>scm:git:https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/NWQMC/test-version.git</connection>
         <developerConnection>scm:git:https://github.com/NWQMC/test-version.git</developerConnection>
 <!--         <connection>scm:git:git@github.com:NWQMC/test-version.git</connection> -->
 <!--         <developerConnection>scm:git:git@github.com:NWQMC/test-version.git</developerConnection> -->
