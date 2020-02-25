@@ -82,32 +82,32 @@
 
     </dependencies>
 
-    <profiles>
-        <profile>
-            <id>release</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-scm-plugin</artifactId>
-                        <version>1.11.2</version>
-                        <configuration>
-                            <tag>${project.artifactId}-${project.version}</tag>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
+<!--     <profiles> -->
+<!--         <profile> -->
+<!--             <id>release</id> -->
+<!--             <build> -->
+<!--                 <plugins> -->
+<!--                     <plugin> -->
+<!--                         <artifactId>maven-scm-plugin</artifactId> -->
+<!--                         <version>1.11.2</version> -->
+<!--                         <configuration> -->
+<!--                             <tag>${project.artifactId}-${project.version}</tag> -->
+<!--                         </configuration> -->
+<!--                     </plugin> -->
+<!--                 </plugins> -->
+<!--             </build> -->
+<!--         </profile> -->
+<!--     </profiles> -->
 
 <build>
    <plugins>
-<!--       <plugin> -->
-<!--         <artifactId>maven-scm-plugin</artifactId> -->
-<!--         <version>1.11.2</version> -->
-<!--         <configuration> -->
-<!--              <tag>${project.artifactId}-${project.version}</tag> -->
-<!--         </configuration> -->
-<!--       </plugin> -->
+      <plugin>
+        <artifactId>maven-scm-plugin</artifactId>
+        <version>1.11.2</version>
+        <configuration>
+             <tag>${project.artifactId}-${project.version}</tag>
+        </configuration>
+      </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
