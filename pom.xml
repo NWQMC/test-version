@@ -101,13 +101,14 @@
 
 <build>
    <plugins>
-<!--       <plugin> -->
-<!--         <artifactId>maven-scm-plugin</artifactId> -->
-<!--         <version>1.11.2</version> -->
-<!--         <configuration> -->
-<!--              <tag>${project.artifactId}-${project.version}</tag> -->
-<!--         </configuration> -->
-<!--       </plugin> -->
+        <plugin>
+            <groupId>com.amashchenko.maven.plugin</groupId>
+            <artifactId>gitflow-maven-plugin</artifactId>
+            <version>1.14.0</version>
+            <configuration>
+                <!-- optional configuration -->
+            </configuration>
+        </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-help-plugin</artifactId>
