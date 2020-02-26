@@ -106,6 +106,7 @@
             <artifactId>gitflow-maven-plugin</artifactId>
             <version>1.14.0</version>
             <configuration>
+                <fetchRemote>false</fetchRemote>
                 <gitFlowConfig>
                     <developmentBranch>master</developmentBranch>
                 </gitFlowConfig>
