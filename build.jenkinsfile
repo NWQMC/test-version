@@ -1,0 +1,56 @@
+@Library(value='iow-ecs-pipeline@1.0.0', changelog=false) _
+
+pipeline {
+  agent {
+    node {
+      label 'project:any'
+    }
+  }
+  stages {
+    stage('install pipeline dependencies') {
+        pipelineUtils.setUpPythonVirtualEnv()
+        pipelineUtils.pipInstall('--only-binary=bumpversion bumpversion==0.5.3 requests boto3 chevron pyyaml')
+    }
+    stage('build, publish, and possibly tag artifact') {
+      steps {
+        sh '''
+            git config user.email "cida_javadev@usgs.gov"
+            git config user.name "CIDA-Jenkins"
+
+            cp $WMA_ARTIFACTORY_SETTINGS_XML $WORKSPACE/settings.xml
+
+            if test ${BUILD_TYPE}" == "releases"; then 
+
+                docker run --rm \
+                    -v "$WORKSPACE":/usr/src/mymaven \
+                    -v "$WORKSPACE":/root/.m2 \
+                    -w /usr/src/mymaven \
+                    maven:3.6.0-jdk-11 mvn -Drevision=$BUILD_NUMBER -DskipTests=true -Ddocker.skip=true deploy scm:tag -P release;
+
+            else
+
+                docker run --rm \
+                    -v "$WORKSPACE":/usr/src/mymaven \
+                    -v "$WORKSPACE":/root/.m2 \
+                    -w /usr/src/mymaven \
+                    maven:3.6.0-jdk-11 mvn -Drevision=$BUILD_NUMBER -DskipTests=true -Ddocker.skip=true deploy;
+
+            fi;
+          '''
+      }
+    }
+  }
+  stage('push to git') {
+    if ("${env.BUILD_TYPE}" == "releases") {
+      pipelineUtils.incrementToNextDevelopmentVersion()
+    }
+    pipelineUtils.pushToGitRepo(p.gitRepoUrl, p.gitRepoCredentialsId)
+  }
+  post {
+    always {
+      script {
+        pipelineUtils.cleanWorkspace()
+      }
+    }
+  }
+}
